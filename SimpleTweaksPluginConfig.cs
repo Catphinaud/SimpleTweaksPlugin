@@ -98,7 +98,7 @@ public partial class SimpleTweaksPluginConfig : IPluginConfiguration {
     }
     
     public void Save() {
-        Service.PluginInterface.SavePluginConfig(this);
+       //  Service.PluginInterface.SavePluginConfig(this);
     }
     
     [NonSerialized] private string searchInput = string.Empty;

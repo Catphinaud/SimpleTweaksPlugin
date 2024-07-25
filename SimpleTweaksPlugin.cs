@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 #pragma warning disable CS0659
 namespace SimpleTweaksPlugin {
     public class SimpleTweaksPlugin : IDalamudPlugin {
-        public string Name => "Simple Tweaks";
+        public string Name => "Debug Tweaks";
         public SimpleTweaksPluginConfig PluginConfig { get; private set; }
 
         public List<TweakProvider> TweakProviders = new();
@@ -41,7 +41,7 @@ namespace SimpleTweaksPlugin {
 
         public readonly ConfigWindow ConfigWindow = new ConfigWindow();
         public readonly DebugWindow DebugWindow = new DebugWindow();
-        public readonly WindowSystem WindowSystem = new WindowSystem("SimpleTweaksPlugin");
+        public readonly WindowSystem WindowSystem = new WindowSystem("DebugTweaksPlugin");
         public readonly Changelog ChangelogWindow = new();
         
         
@@ -165,8 +165,6 @@ namespace SimpleTweaksPlugin {
 
 
             Service.Framework.Update += FrameworkOnUpdate;
-            
-            MetricsService.ReportMetrics();
         }
         
 
@@ -186,7 +184,7 @@ namespace SimpleTweaksPlugin {
         }
 
         public void SetupCommands() {
-            Service.Commands.AddHandler("/tweaks", new Dalamud.Game.Command.CommandInfo(OnConfigCommandHandler) {
+            Service.Commands.AddHandler("/dbgtweaks", new Dalamud.Game.Command.CommandInfo(OnConfigCommandHandler) {
                 HelpMessage = $"Open config window for {this.Name}",
                 ShowInHelp = true
             });
@@ -219,7 +217,7 @@ namespace SimpleTweaksPlugin {
                         case "t":
                         case "toggle": {
                             if (splitArgString.Length < 2) {
-                                Service.Chat.PrintError("/tweaks toggle <tweakid>");
+                                Service.Chat.PrintError("/dbgtweaks toggle <tweakid>");
                                 return;
                             }
                             var tweak = GetTweakById(splitArgString[1]);
@@ -247,7 +245,7 @@ namespace SimpleTweaksPlugin {
                         case "e":
                         case "enable": {
                             if (splitArgString.Length < 2) {
-                                Service.Chat.PrintError("/tweaks enable <tweakid>");
+                                Service.Chat.PrintError("/dbgtweaks enable <tweakid>");
                                 return;
                             }
                             var tweak = GetTweakById(splitArgString[1]);
@@ -269,7 +267,7 @@ namespace SimpleTweaksPlugin {
                         case "d":
                         case "disable": {
                             if (splitArgString.Length < 2) {
-                                Service.Chat.PrintError("/tweaks disable <tweakid>");
+                                Service.Chat.PrintError("/dbgtweaks disable <tweakid>");
                                 return;
                             }
                             var tweak = GetTweakById(splitArgString[1]);
@@ -291,7 +289,7 @@ namespace SimpleTweaksPlugin {
                         case "f":
                         case "find": {
                             if (splitArgString.Length < 2) {
-                                Service.Chat.PrintError("/tweaks find <tweakid>");
+                                Service.Chat.PrintError("/dbgtweaks find <tweakid>");
                                 return;
                             }
                             var tweak = GetTweakById(splitArgString[1]);
@@ -359,7 +357,7 @@ namespace SimpleTweaksPlugin {
         }
 
         public void RemoveCommands() {
-            Service.Commands.RemoveHandler("/tweaks");
+            Service.Commands.RemoveHandler("/dbgtweaks");
         }
 
         private void BuildUI() {
